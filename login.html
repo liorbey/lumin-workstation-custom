@@ -1,6 +1,6 @@
 {% extends "page.html" %}
 {% if announcement_login %}
-  {% set announcement = announcement_login %}
+{% set announcement = announcement_login %}
 {% endif %}
 
 {% block login_widget %}
@@ -10,208 +10,306 @@
 
 {% block login %}
 <div id="login-main" class="container">
-{% if custom_html %}
-{{ custom_html | safe }}
-{% elif login_service %}
-<div class="service-login">
-  <a role="button" class='btn btn-jupyter btn-lg' href='{{authenticator_login_url}}'>
-    Sign in with {{login_service}}
-  </a>
-  <br>
-  <br>
-  <br>
-  <p>
-  當您使用 Datainpoint, Inc. 所提供之 JupyterHub 服務時，即表示您同意及遵守我們的<a onclick="var pp = document.getElementById('datainpointPP'); var gtc = document.getElementById('datainpointGTC'); pp.style.display = 'none'; if (gtc.style.display === 'none') { gtc.style.display = 'block'; } else { gtc.style.display = 'none'; }">服務條款</a>及<a onclick="var gtc = document.getElementById('datainpointGTC'); gtc.style.display = 'none'; var pp = document.getElementById('datainpointPP'); if (pp.style.display === 'none') { pp.style.display = 'block'; } else { pp.style.display = 'none'; }">隱私權保護政策</a>。
-  <div id="datainpointGTC" style='display:none;text-align:left'>
-	  <center><h3>服務條款</h3></center>
-	  <br>
-	  https://lab.datainpoint.com 是由 Datainpoint, Inc.（下稱我們）所經營之網站（下稱本網站）各項服務與資訊。以下是我們的服務條款（以下簡稱「本條款」），是就我們所提供所有相關產品與服務（以下簡稱「本服務」）的使用條件，由使用本服務的您與我們之間訂定的條款。
-	  <br>
-	  <a name='#gtc1'></a>
-	  <h4>一、對於條款的同意表示</h4>
-	  <ul>
-		  <li>您應遵照本條款規定使用本服務。除非您有效且不可撤銷地同意本條款，方能使用本服務。</li>
-		  <li>如您為未成年人，須經過親權人等法定代理人同意後，方能使用本服務。此外，如您是為業者使用本服務時，亦請於該業者同意本條款後，再使用本服務。</li>
-		  <li>本服務一經您實際使用，將視為您已有效且不可撤銷地同意本條款。</li>
-		  <li>本服務有個別使用條款時，除本條款外，您亦應遵照個別使用條款規定使用本服務。</li>
-	  </ul>
-	  <a name='#gtc2'></a>
-	  <h4>二、條款的變更</h4>
-	  本政策內容可能在新功能、新科技、法律要求變更時因應調整，請您隔一段時間來查看一下。如本政策有重大變更，我們會主動通知您；而如有需求，我們也會先行尋求您的同意。如果我們修正本服務條款，您可自行決定是否接受更新的條款或停止使用我們的服務；您如在修正生效後仍繼續使用本公司之服務，即視為您已經同意修正條款且願意受其拘束。 除按此處所述方式所為之修正外，本服務條款的任何其他修改或修訂，除非以書面契約之形式明確記載其修正內容，並經您及我們簽署，否則均屬無效。為明確起見，就前述修正方式而言，電子郵件或其他通訊將不構成有效的書面契約。
-	  <a name='#gtc3'></a>
-	  <h4>三、服務的提供</h4>
-	  首先，您需要成為 Datainpoint, Inc. 的 <a href="https://datainpoint.substack.com/about" target="_blank">Substack</a> 付費訂閱用戶；其次，您將以訂閱的電子郵件信箱來登入使用 Datainpoint, Inc. 所提供之 JupyterHub 服務。
-	  <a name='#gtc4'></a>
-	  <h4>四、有限責任及免責條款</h4>
-	  <ul>
-		  <li>您應承擔使用本服務的風險。</li>
-		  <li>我們按照本服務之「現有狀態」及「現能使用的狀態」提供服務。在相關法律所准許的最大範圍內，特此聲明我們並不提供任何明示或暗示的保證及服務條件，包括但不限於：我們並未針對本服務是否具適售性、是否合於特定用途及未侵權提供任何暗示的保證及服務條件。</li>
-		  <li>我們並未保證本服務將滿足您的所有需要；本服務必定毫無中斷、即時、安全或無錯誤；或軟體或服務中的所有錯誤必將得到更正。</li>
-		  <li>您若透過本服務下載或以其他方式取得任何資料，均由您自行判斷並承擔其中可能的風險，如因前述下載或使用資料而導致您的電腦或其他裝置受有任何損害或資料遺失，均由您獨自承擔責任。</li>
-		  <li>您從我們或透過本服務獲得的任何口頭或書面意見或資訊，概不構成本服務條款明確記載範圍以外的任何保證或承諾。</li>
-	  </ul>
-	  <br>
-	  <br>
-	  <br>
-  </div>
-  <div id="datainpointPP" style='display:none;text-align:left'>
-	  <center><h3>隱私權保護政策</h3></center>
-	  <!--
-	  <a href='#pp1'>一、隱私權保護政策的適用範圍</a><br>
-	  <a href='#pp2'>二、個人資料的蒐集、處理及利用方式</a><br>
-	  <a href='#pp3'>三、資料的保護</a><br>
-	  <a href='#pp4'>四、網站對外的相關連結</a><br>
-	  <a href='#pp5'>五、與第三人共用個人資料之政策</a><br>
-	  <a href='#pp6'>六、Cookie之使用</a><br>
-	  <a href='#pp7'>七、隱私權保護政策之修正</a><br>
-	  -->
-	  <br>
-	  https://lab.datainpoint.com 是由 Datainpoint, Inc.（下稱我們）所經營之網站（下稱本網站）各項服務與資訊。以下是我們的隱私權保護政策，幫助您瞭解本網站所蒐集的個人資料之運用及保護方式。請您在於使用本網站服務前，確認您已審閱並同意本隱私權政策所列全部條款，若您不同意全部或部份者，請勿使用本網站服務。
-	  <br>
-	  <a name='#pp1'></a>
-	  <h4>一、隱私權保護政策的適用範圍</h4>
-		  隱私權保護政策內容，包括本網站如何處理在您使用網站服務時收集到的個人識別資料。隱私權保護政策不適用於本網站以外的相關連結網站，也不適用於非本網站所委託或參與管理的人員。
-	  <a name='#pp2'></a>
-	  <h4>二、個人資料的蒐集、處理及利用方式</h4>
-		  <ul>
-			  <li>當您造訪本網站或使用本網站所提供之功能服務時，我們將視該服務功能性質，請您提供必要的個人資料，並在該特定目的範圍內處理及利用您的個人資料；非經您書面同意，本網站不會將個人資料用於其他用途。</li>
-			  <li>本網站在您使用服務信箱、問卷調查等互動性功能時，會保留您所提供的姓名、電子郵件地址、聯絡方式及使用時間等。</li>
-			  <li>於一般瀏覽時，伺服器會自行記錄相關行徑，包括您使用連線設備的IP位址、使用時間、使用的瀏覽器、瀏覽及點選資料記錄等，做為我們增進網站服務的參考依據，此記錄為內部應用，決不對外公佈。</li>
-			  <li>為提供精確的服務，我們會將收集的問卷調查內容進行統計與分析，分析結果之統計數據或說明文字呈現，除供內部研究外，我們會視需要公佈統計數據及說明文字，但不涉及特定個人之資料。</li>
-		  </ul>
-	  <a name='#pp3'></a>
-	  <h4>三、資料的保護</h4>
-		  <ul>
-			  <li>本網站主機均設有防火牆、防毒系統等相關的各項資訊安全設備及必要的安全防護措施，加以保護網站及您的個人資料採用嚴格的保護措施，只由經過授權的人員才能接觸您的個人資料，相關處理人員皆簽有保密合約，如有違反保密義務者，將會受到相關的法律處分。</li>
-			  <li>如因業務需要有必要委託其他單位提供服務時，本網站亦會嚴格要求其遵守保密義務，並且採取必要檢查程序以確定其將確實遵守。</li>
-		  </ul>
-	  <a name='#pp4'></a>
-	  <h4>四、網站對外的相關連結</h4>
-		  本網站的網頁提供其他網站的網路連結，您也可經由本網站所提供的連結，點選進入其他網站。但該連結網站不適用本網站的隱私權保護政策，您必須參考該連結網站中的隱私權保護政策。
-	  <a name='#pp5'></a>
-	  <h4>五、與第三人共用個人資料之政策</h4>
-		  本網站絕不會提供、交換、出租或出售任何您的個人資料給其他個人、團體、私人企業或公務機關，但有法律依據或合約義務者，不在此限。<br>
-		  前項但書之情形包括不限於：
-		  <ul>
-			  <li>經由您書面同意。</li>
-			  <li>法律明文規定。</li>
-			  <li>為免除您生命、身體、自由或財產上之危險。</li>
-			  <li>與公務機關或學術研究機構合作，基於公共利益為統計或學術研究而有必要，且資料經過提供者處理或蒐集者依其揭露方式無從識別特定之當事人。</li>
-			  <li>當您在網站的行為，違反服務條款或可能損害或妨礙網站與其他使用者權益或導致任何人遭受損害時，經網站管理單位研析揭露您的個人資料是為了辨識、聯絡或採取法律行動所必要者。</li>
-			  <li>有利於您的權益。</li>
-			  <li>本網站委託廠商協助蒐集、處理或利用您的個人資料時，將對委外廠商或個人善盡監督管理之責。</li>
-		  </ul>
-	  <a name='#pp6'></a>
-	  <h4>六、Cookie之使用</h4>
-		  為了提供您最佳的服務，本網站會在您的電腦中放置並取用我們的Cookie，若您不願接受Cookie的寫入，您可在您使用的瀏覽器功能項中設定隱私權等級為高，即可拒絕Cookie的寫入，但可能會導致網站某些功能無法正常執行 。
-	  <a name='#pp7'></a>
-	  <h4>七、隱私權保護政策之修正</h4>
-		  本網站隱私權保護政策將因應需求隨時進行修正，修正後的條款將刊登於網站上。
-	  <br>
-	  <br>
-	  <br>
-  </div>
-  </p>
-</div>
-{% else %}
-<form action="{{login_url}}?next={{next}}" method="post" role="form">
-  <div class="auth-form-header">
-    Sign in
-  </div>
-  <div class='auth-form-body'>
+  <div class="loginTable">
+    <div class="loginTableRow">
+      <div class="contentLeft">
+        <img src="" alt="Lumin Workstation">
+      </div>
+      <div class="contentRight">
+        <form id="login" name="login" action="" method="post">
+          <input type="hidden" name="performauthentication" value="true">
+          <div class="inputContainer">
+            <br>
+            <!--<center>
+              <h3> Google OAuth 2.0 </h3>
+            </center> -->
+            <center>
+              <a role="button" id="google-signin2" href='{{authenticator_login_url}}'>
+                <img width="200px" height="52px"
+                  src=""
+                  onmouseover="this.src='https://storage.googleapis.com/utd/assets/btn_google_signin_dark_focus_web%402x.png'"
+                  onmouseout="this.src='https://storage.googleapis.com/utd/assets/btn_google_signin_dark_normal_web%402x.png'"
+                  onmousedown="this.src='https://storage.googleapis.com/utd/assets/btn_google_signin_dark_pressed_web%402x.png'"
+                  border="0" alt="Google"/>
+              </a>
+            </center>
+            <div class="inputContainer">
+              <label class="inputLabel" for="Username">Username</label>
+              <br>
+              <input id="username_input" title="Username" name="username" class="inp-full-width has-checkmark"
+                required="" placeholder="" val="{{username}}" aria-label="Username" autocomplete="off" type="text"
+                disabled>
+              <br>
+            </div>
+            <div class="inputContainer">
+              <label class="inputLabel" for="password">Password</label>
+              <br>
+              <input id="password_input" title="Password" name="password" class="inp-full-width has-checkmark"
+                required="" placeholder="" aria-label="Password" autocomplete="off" type="password" disabled>
+            </div>
 
-    <p id='insecure-login-warning' class='hidden'>
-    Warning: JupyterHub seems to be served over an unsecured HTTP connection.
-    We strongly recommend enabling HTTPS for JupyterHub.
-    </p>
+            <div class="submitContainer">
+              <button name="_eventId_proceed" id="login_submit" type="submit" value='Sign In'
+                class="btn btn-primary btn-full-width" disabled> Login </button>
+            </div>
 
-    {% if login_error %}
-    <p class="login_error">
-      {{login_error}}
-    </p>
-    {% endif %}
-    <label for="username_input">Username:</label>
-    <input
-      id="username_input"
-      type="text"
-      autocapitalize="off"
-      autocorrect="off"
-      class="form-control"
-      name="username"
-      val="{{username}}"
-      tabindex="1"
-      autofocus="autofocus"
-    />
-    <label for='password_input'>Password:</label>
-    <input
-      type="password"
-      class="form-control"
-      name="password"
-      id="password_input"
-      tabindex="2"
-    />
-
-    <div class="feedback-container">
-      <input
-        id="login_submit"
-        type="submit"
-        class='btn btn-jupyter'
-        value='Sign In'
-        tabindex="3"
-        />
-      <div class="feedback-widget hidden">
-        <i class="fa fa-spinner"></i>
+            <div id="helpContainer">
+              <p>Request access? <a href="" target="_blank">Contact Admin</a>
+                <br>
+                What's it like? <a href="https://jupyter.org/index.html" target="_blank">About JupyterHub</a></p>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
+    <div class="bookmarkMessage">
+      <h3>Welcome to the Champions Workstation</h3>
+    </div>
   </div>
-</form>
-{% endif %}
 </div>
-<!-- custom footer -->
-<footer class='navbar-default'>
-    <p>Datainpoint, Inc. &copy 2020-present All Rights Reserved.</p>
-</footer>
-<!-- end of custom footer -->
-{% endblock login %}
 
+{% endblock login %}
 {% endblock %}
 
 {% block stylesheet %}
-{{ super() }}
 <style>
-    .service-login p {
-	    margin-left: auto;
-	    margin-right: auto;
-	    display: table;
-    }
-    footer {
-        border-top: 1px solid silver;
-        padding: 10px;
-        bottom: 0;
-        position: fixed;
-        width: 100%;
-    }
-    footer p {
-        margin: 0 auto 0 auto;
-        text-align: center;
-    }
+@charset "utf-8";
+.footer,
+.footer p,
+body {
+	margin: 0;
+}
+
+/* html {overflow: hidden;} */
+
+body {
+	background: url(https://storage.googleapis.com/utd/assets/bg.jpg);
+	background-repeat: no-repeat;
+	font-family: Arial, sans-serif;
+	font-size: 14px;
+	padding: 0;
+        background-size: cover;
+		background-position: center;
+}
+
+a,
+a:active,
+a:focus,
+a:visited {
+	color: #008542;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #008542;
+	text-decoration: underline;
+}
+
+.container {
+	background-color: transparent;
+	width: 100hw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.loginTable {
+	display: table;
+	vertical-align: middle;
+	text-align: center;
+    background: linear-gradient(180deg, rgba(0, 114, 78, 1) 0%, rgba(21, 71, 52, 1) 100%);
+	box-shadow: 0 0 15px 0 #6e6e6e;
+	color: #3e3e3e;
+	max-width: 600px;
+	min-width: 320px;
+	height: 150px;
+}
+
+.loginTableRow {
+	display: table;
+	background-color: #fefefe;
+}
+
+.contentLeft,
+.contentRight {
+	vertical-align: middle;
+	background-color: transparent;
+}
+
+@media screen and (max-width:599px) {
+	.contentLeft,
+	.contentRight {
+		display: table-row;
+		width: 100%;
+		height: 150px;
+	}
+	.loginTableRow {
+		width: 100%;
+	}
+	.bookmarkMessage {
+		padding: 0 50px !important; 
+	}
+}
+
+
+
+@media screen and (min-width:600px) {
+	.contentLeft,
+	.contentRight {
+		display: table-cell;
+		height: 300px;
+	}
+}
+
+.contentLeft {
+	width: 300px;
+}
+
+.contentLeft img {
+	width: 220px;
+}
+
+.contentRight {
+	width: 320px;
+}
+
+.bookmarkMessage {
+	color: #fff;
+	text-align: center;
+	padding: 0 100px;
+}
+
+.inputContainer {
+	padding-bottom: 15px;
+}
+.inputContainer > center{
+	margin-top: 10px;
+}
+
+.inputLabel {
+	font-weight: bold;
+	display: inline-block;
+	width: 192px;
+	text-align: left;
+}
+
+#netid, #username_input, #password_input, #password {
+	border: 1px solid #b7b1a9;
+	padding: 10px;
+	width: 170px;
+	text-align: left;
+	margin-top: 5px;
+	border-radius: 5px;
+}
+
+#login_submit, #submit {
+	width: 191px;
+	padding: 10px;
+	border: none;
+	display: inline-block;
+	background: linear-gradient(180deg, rgba(0, 114, 78, 1) 0%, rgba(21, 71, 52, 1) 100%);
+	color: #fff;
+	border-radius: 5px;
+}
+
+#submit:hover {
+	background: linear-gradient(180deg, rgba(0, 114, 78, 1) 0%, rgba(21, 71, 52, 1) 100%);
+	cursor: pointer;
+}
+
+.footer {
+	bottom: 0;
+	position: absolute !important;
+	padding: 12px 0;
+	width: 100%;
+	font-size: 12px;
+	text-align: center;
+	background-color: #fefefe;
+        padding: 0 !important;
+        margin: 0 !important;
+}
+
+@media screen and (orientation:landscape) and (max-height: 515px) {
+	.footer {
+		position: relative !important;
+		bottom: 0;
+		margin-top: 50px;
+	}
+	
+}
+
+@media screen and (orientation:portrait) and (max-height: 690px) {
+	.footer {
+		bottom: 0;
+		position: relative !important;
+		margin-top: 50px;
+	}
+}
+
+@media screen and (orientation:landscape) and (width:568px) and (height:320px) {
+	.footer {
+		position: relative !important;
+		bottom: 0 !important;
+		margin-top: 50px !important;
+		font-size: 12px !important;
+	}
+	.container {
+		height: auto !important;
+		width: 100% !important;
+	}
+}
+
+
+.errorMessage {
+	display:block;
+	background-color:#FDF6F6; 
+	border: 1px solid #E48E8E; 
+	color: #D96060;
+	padding: 5px; 
+	width: 90%; 
+	border-radius: 3px;
+	font-size: 12px;
+	width: 230px;
+	margin: 0 auto;
+}
+
+.errorMessage > p {
+	padding: 0;
+	margin: 0;
+}
+
+.footer> ul {
+	padding: 12px 0;
+	margin: 0;
+}
+
+#error-dialog{
+	display: none !important;
+}
+body > noscript{
+	display: none !important;
+} 
+body > nav.navbar{
+	display: none !important;
+}
 </style>
 {% endblock %}
 
 {% block script %}
 {{ super() }}
 <script>
-if (window.location.protocol === "http:") {
-  // unhide http warning
-  var warning = document.getElementById('insecure-login-warning');
-  warning.className = warning.className.replace(/\bhidden\b/, '');
-}
-// setup onSubmit feedback
-$('form').submit((e) => {
-  var form = $(e.target);
-  form.find('.feedback-container>input').attr('disabled', true);
-  form.find('.feedback-container>*').toggleClass('hidden');
-  form.find('.feedback-widget>*').toggleClass('fa-pulse');
-});
+  if (window.location.protocol === "http:") {
+    // unhide http warning
+    var warning = document.getElementById('insecure-login-warning');
+    warning.className = warning.className.replace(/\bhidden\b/, '');
+  }
+  // setup onSubmit feedback
+  $('form').submit((e) => {
+    var form = $(e.target);
+    form.find('.feedback-container>input').attr('disabled', true);
+    form.find('.feedback-container>*').toggleClass('hidden');
+    form.find('.feedback-widget>*').toggleClass('fa-pulse');
+  });
 </script>
 {% endblock %}
