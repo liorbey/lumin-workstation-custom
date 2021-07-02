@@ -16,37 +16,69 @@
         <img src="" alt="Lumin Workstation">
       </div>
       <div class="contentRight">
-        <form id="login" name="login" action="" method="post">
-          <input type="hidden" name="performauthentication" value="true">
-          <div class="inputContainer">
-            <br>
-            <div class="inputContainer">
-              <label class="inputLabel" for="Username">Username</label>
-              <br>
-              <input id="username_input" title="Username" name="username" class="inp-full-width has-checkmark"
-                required="" placeholder="" val="{{username}}" aria-label="Username" autocomplete="off" type="text"
-                disabled>
-              <br>
-            </div>
-            <div class="inputContainer">
-              <label class="inputLabel" for="password">Password</label>
-              <br>
-              <input id="password_input" title="Password" name="password" class="inp-full-width has-checkmark"
-                required="" placeholder="" aria-label="Password" autocomplete="off" type="password" disabled>
-            </div>
+	<form action="{{login_url}}?next={{next}}" method="post" role="form">
+	  <div class="auth-form-header">
+	    Sign in
+	  </div>
+	  <div class='auth-form-body'>
 
-            <div class="submitContainer">
-              <button name="_eventId_proceed" id="login_submit" type="submit" value='Sign In'
-                class="btn btn-primary btn-full-width" disabled> Login </button>
-            </div>
+	    <p id='insecure-login-warning' class='hidden'>
+	    Warning: JupyterHub seems to be served over an unsecured HTTP connection.
+	    We strongly recommend enabling HTTPS for JupyterHub.
+	    </p>
 
-            <div id="helpContainer">
-              <p>Request access? <a href="" target="_blank">Contact Admin</a>
-                <br>
-                What's it like? <a href="https://jupyter.org/index.html" target="_blank">About JupyterHub</a></p>
-            </div>
-          </div>
-        </form>
+	    {% if login_error %}
+	    <p class="login_error">
+	      {{login_error}}
+	    </p>
+	    {% endif %}
+	    <label for="username_input">Username:</label>
+	    <input
+	      id="username_input"
+	      type="text"
+	      autocapitalize="off"
+	      autocorrect="off"
+	      class="form-control"
+	      name="username"
+	      val="{{username}}"
+	      tabindex="1"
+	      autofocus="autofocus"
+	    />
+	    <label for='password_input'>Password:</label>
+	    <input
+	      type="password"
+	      class="form-control"
+	      name="password"
+	      id="password_input"
+	      tabindex="2"
+	    />
+
+	    <div class="feedback-container">
+	      <input
+		id="login_submit"
+		type="submit"
+		class='btn btn-jupyter'
+		value='Sign in'
+		tabindex="3"
+		/>
+	      <div class="feedback-widget hidden">
+		<i class="fa fa-spinner"></i>
+	      </div>
+	    </div>
+
+	    {% block login_terms %}
+	    {% if login_term_url %}
+	    <div id="login_terms" class="login_terms">
+	    <input type="checkbox" id="login_terms_checkbox" name="login_terms_checkbox" required />
+	    {% block login_terms_text %} {# allow overriding the text #}
+	    By logging into the platform you accept the <a href="{{ login_term_url }}">terms and conditions</a>.
+	    {% endblock login_terms_text %}
+	    </div>
+	    {% endif %}
+	    {% endblock login_terms %}
+
+	  </div>
+	</form>
       </div>
     </div>
     <div class="bookmarkMessage">
@@ -162,7 +194,7 @@ a:hover {
 }
 
 .bookmarkMessage {
-	color: #fff;
+	color: #003363;
 	text-align: center;
 	padding: 0 100px;
 }
@@ -196,7 +228,7 @@ a:hover {
 	border: none;
 	display: inline-block;
 	background: linear-gradient(180deg, rgba(0, 114, 78, 1) 0%, rgba(21, 71, 52, 1) 100%);
-	color: #fff;
+	color: #003363;
 	border-radius: 5px;
 }
 
