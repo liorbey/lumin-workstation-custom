@@ -1,91 +1,123 @@
-{% extends "templates/login.html" %}
-{% set announcement = 'Beta version is now released' %}
+{% extends "page.html" %}
+{% if announcement_login %}
+  {% set announcement = announcement_login %}
+{% endif %}
+
+{% block login_widget %}
+{% endblock %}
+
 {% block main %}
-    <style>
-        @font-face {
-            font-family: "Open Sans", sans-serif;
-        }
 
-        label{
-            color: #EFEFEF !important;
-        }
+{% block login %}
+<div id="login-main" class="container">
+{% block login_container %}
+{% if custom_html %}
+{{ custom_html | safe }}
+{% elif login_service %}
+<div class="service-login">
+  <a role="button" class='btn btn-jupyter btn-lg' href='{{authenticator_login_url}}'>
+    Sign in with {{login_service}}
+  </a>
+</div>
+{% else %}
+<form action="{{authenticator_login_url}}" method="post" role="form">
+  <div class="auth-form-header">
+    Sign in
+  </div>
+  <div class='auth-form-body'>
 
-        body {
-            background-color: #012350;
-        }
+    <p id='insecure-login-warning' class='hidden'>
+    Warning: JupyterHub seems to be served over an unsecured HTTP connection.
+    We strongly recommend enabling HTTPS for JupyterHub.
+    </p>
 
+    {% if login_error %}
+    <p class="login_error">
+      {{login_error}}
+    </p>
+    {% endif %}
+    <label for="username_input">Username:</label>
+    <input
+      id="username_input"
+      type="text"
+      autocapitalize="off"
+      autocorrect="off"
+      class="form-control"
+      name="username"
+      val="{{username}}"
+      tabindex="1"
+      autofocus="autofocus"
+    />
+    <label for='password_input'>Password:</label>
+    <input
+      type="password"
+      class="form-control"
+      name="password"
+      id="password_input"
+      tabindex="2"
+    />
 
-        .pangeo h1 {
-            color: #EFEFEF;
-            font-family: "Open Sans";
-            margin-top: 30px;
-            margin-bottom: 20px;
-        }
-
-        h2 {
-            font-family: "Open Sans", sans-serif;
-            font-size: 2rem;
-            color: #EFEFEF;
-            margin-bottom: 10px;
-        }
-
-        .pangeo p {
-            font-size: 1.7rem;
-            font-family: "Open Sans", sans-serif;
-            color: #EFEFEF;
-            margin: 0;
-        }
-
-
-        .navbar.navbar-default {
-            background: #012350;
-            border: None;
-        }
-
-        .navbar.navbar-default .navbar-nav > li > a, .navbar.navbar-default .navbar-text {
-            color: #EFEFEF;
-        }
-
-        .navbar.navbar-default .navbar-nav > li > a:hover, .navbar.navbar-default .navbar-nav > li > a:focus {
-            background-color: #056df7;
-        }
-
-        .navbar.navbar-default .navbar-nav > .open > a, .navbar.navbar-default .navbar-nav > .open > a:hover, .navbar.navbar-default .navbar-nav > .open > a:focus {
-            background-color: #056df7;
-        }
-
-        #login-main .auth-form-header {
-            font-family: "Open Sans", sans-serif;
-            background: #056df7 !important;
-            color: #EFEFEF;
-        }
-
-
-        .btn-jupyter {
-            color: #EFEFEF;
-            background-color: #056df7 !important;
-            border-color: #056df7 !important;
-        }
-
-        #login-main .service-login {
-            vertical-align: top !important;
-            padding-top: 20px;
-        }
-        #login-main #insecure-login-warning{
-            background-color: #003363;
-            color: #EFEFEF;
-        }
-    </style>
-    <div class="container text-center pangeo">
-        <!--<h1>{{ 'Champions Workstation' }}</h1>-->
-        <h2>{{ pangeo_hub_subtitle }}</h2>
-        <p>
-            {% if pangeo_welcome %}
-                {{ (pangeo_welcome | safe) }}
-            {% else %}
-                Welcome to the Champions Workstation. Query Champions data with limitless insights.
-            {% endif %}
-        </p>
+    <div class="feedback-container">
+      <input
+        id="login_submit"
+        type="submit"
+        class='btn btn-jupyter'
+        value='Sign in'
+        tabindex="3"
+        />
+      <div class="feedback-widget hidden">
+        <i class="fa fa-spinner"></i>
+      </div>
     </div>
-    {{ super() }}
+
+    {% block login_terms %}
+    {% if login_term_url %}
+    <div id="login_terms" class="login_terms">
+    <input type="checkbox" id="login_terms_checkbox" name="login_terms_checkbox" required />
+    {% block login_terms_text %} {# allow overriding the text #}
+    By logging into the platform you accept the <a href="{{ login_term_url }}">terms and conditions</a>.
+    {% endblock login_terms_text %}
+    </div>
+    {% endif %}
+    {% endblock login_terms %}
+
+  </div>
+</form>
+{% endif %}
+{% endblock login_container %}
+</div>
+{% endblock login %}
+
+{% endblock %}
+
+{% block script %}
+{{ super() }}
+<script>
+if (window.location.protocol === "http:") {
+  // unhide http warning
+  var warning = document.getElementById('insecure-login-warning');
+  warning.className = warning.className.replace(/\bhidden\b/, '');
+}
+// setup onSubmit feedback
+$('form').submit((e) => {
+  var form = $(e.target);
+  form.find('.feedback-container>input').attr('disabled', true);
+  form.find('.feedback-container>*').toggleClass('hidden');
+  form.find('.feedback-widget>*').toggleClass('fa-pulse');
+});
+window.addEventListener('message', event => {
+// IMPORTANT: check the origin of the data! 
+if (event.origin.startsWith('http://localhost:8888')) { 
+    // The data was sent from your site.
+    // Data sent with postMessage is stored in event.data:
+    console.log('here');
+    console.log(event.data); 
+} else {
+    // The data was NOT sent from your site! 
+    // Be careful! Do not use it. This else branch is
+    // here just for clarity, you usually shouldn't need it.
+    return; 
+} 
+}); 
+</script>
 {% endblock %}
